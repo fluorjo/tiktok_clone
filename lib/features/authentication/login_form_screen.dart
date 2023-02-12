@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
+import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -21,6 +22,11 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
       if (_formKey.currentState!.validate()) {
         //save:모든 텍스트 입력에 onsaved 콜백 함수를 실행함.
         _formKey.currentState!.save();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const InterestsScreen(),
+          ),
+        );
         print(formData.values);
         print(formData);
       }
@@ -58,7 +64,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                     ),
                   ),
                   validator: (value) {
-                    // return "Wrong Email";
+                    if (value != null && value.isEmpty) {
+                      return "Please write your email";
+                    }
+                    // return "Wrong Password";
                     return null;
                   },
                   onSaved: (newValue) {
@@ -83,6 +92,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                     ),
                   ),
                   validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return "Plase write your password";
+                    }
                     // return "Wrong Password";
                     return null;
                   },
