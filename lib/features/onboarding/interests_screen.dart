@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
 
 const interests = [
@@ -59,7 +60,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
 
   void _onScroll() {
     if (_scrollController.offset > 100) {
-      //그냥 놔두면 100 넘어간 뒤 매 스크롤마다 setstate가 실행됨. 이걸 방지하기 위해 이미 showtitle이 true면 아무 것도 안 하게 함. 
+      //그냥 놔두면 100 넘어간 뒤 매 스크롤마다 setstate가 실행됨. 이걸 방지하기 위해 이미 showtitle이 true면 아무 것도 안 하게 함.
       if (_showTitle) return;
       setState(() {
         _showTitle = true;
@@ -69,6 +70,15 @@ class _InterestsScreenState extends State<InterestsScreen> {
         _showTitle = false;
       });
     }
+  }
+
+  void _onNextTap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TutorialScreen(),
+      ),
+    );
   }
 
   @override
@@ -89,7 +99,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
       appBar: AppBar(
         title: AnimatedOpacity(
             opacity: _showTitle ? 1 : 0,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: const Text('Choose your interests')),
       ),
       body: Scrollbar(
@@ -144,13 +154,14 @@ class _InterestsScreenState extends State<InterestsScreen> {
               left: Sizes.size24,
               right: Sizes.size24,
             ),
-            child: CupertinoButton(
-                onPressed: () {},
-                color: Theme.of(context).primaryColor,
-                child: Text('Next')),
+            child: GestureDetector(
+              onTap: _onNextTap,
+              child: CupertinoButton(
+                  onPressed: () {},
+                  color: Theme.of(context).primaryColor,
+                  child: const Text('Next')),
+            ),
           )),
     );
   }
 }
-
-
