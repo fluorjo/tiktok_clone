@@ -155,9 +155,8 @@ class _InterestsScreenState extends State<InterestsScreen> {
               right: Sizes.size24,
             ),
             child: GestureDetector(
-              onTap: _onNextTap,
               child: CupertinoButton(
-                  onPressed: () {},
+                  onPressed: _onNextTap,
                   color: Theme.of(context).primaryColor,
                   child: const Text('Next')),
             ),
