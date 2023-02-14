@@ -31,8 +31,11 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const InterestsScreen()));
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const InterestsScreen(),
+        ),
+        (route) => false,);
   }
 
   void _setTextFieldDate(DateTime date) {
@@ -83,8 +86,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             cursorColor: Theme.of(context).primaryColor,
           ),
           Gaps.v16,
-          GestureDetector(
-              onTap: _onNextTap, child:  FormButton(disabled: false))
+          GestureDetector(onTap: _onNextTap, child: FormButton(disabled: false))
         ]),
       ),
       bottomNavigationBar: BottomAppBar(

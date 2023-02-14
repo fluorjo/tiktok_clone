@@ -22,13 +22,14 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
       if (_formKey.currentState!.validate()) {
         //save:모든 텍스트 입력에 onsaved 콜백 함수를 실행함.
         _formKey.currentState!.save();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const InterestsScreen(),
-          ),
-        );
-        print(formData.values);
-        print(formData);
+        //pushAndRemoveUntil : push한 뒤 기존 화면들을 제거한다.
+        //반드시 다 지우는 건 아니고 원하는 개수 지정 가능.
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const InterestsScreen(),
+            ), (route) =>false);
+        // print(formData.values);
+        // print(formData);
       }
     }
     // _formKey.currentState?.validate();
