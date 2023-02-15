@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -37,29 +38,22 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[_selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onTap,
-        destinations: const [
-          NavigationDestination(
-              icon: FaIcon(
-                FontAwesomeIcons.house,
-                color: Colors.amber,
-              ),
-              label: 'home'),
-          NavigationDestination(
-              icon: FaIcon(FontAwesomeIcons.house), label: 'home'),
-          NavigationDestination(
-              icon: FaIcon(FontAwesomeIcons.house), label: 'home'),
-          NavigationDestination(
-              icon: FaIcon(FontAwesomeIcons.house), label: 'home'),
-          NavigationDestination(
-              icon: FaIcon(FontAwesomeIcons.house), label: 'home'),
-        ],
-      ),
-    );
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.house),
+            label: "home",),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.search),label: "home",),
+          BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.house),label: "home",),
+          BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.house),label: "home",),
+          BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.house),label: "home",),
+        
+        
+        ]
+        
+        ), 
+      tabBuilder:(context,index)=>screens[index],
+      );
   }
 }
