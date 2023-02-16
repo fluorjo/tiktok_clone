@@ -62,13 +62,6 @@ class _VideoPostState extends State<VideoPost>
         upperBound: 1.5,
         value: 1.5,
         duration: _animationDuration);
-
-        //컨트롤러에서 숫자가 1.0 1.1 1.2 매 순간 변하는 걸 감지하고, 매번 그 순간마다 빌드 메서드를 호출한다. 
-    _animationController.addListener(() {
-      setState(() {
-        
-      });
-    });
   }
 
   @override
@@ -121,17 +114,24 @@ class _VideoPostState extends State<VideoPost>
           Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: Transform.scale(
-                  scale: _animationController.value,
-                  child: AnimatedOpacity(
-                    opacity: _isPaused ? 1 : 0,
-                    duration: _animationDuration,
-                    child: FaIcon(
-                      FontAwesomeIcons.play,
-                      color: Colors.white,
-                      size: Sizes.size52,
-                    ),
-                  ),
+                child: AnimatedBuilder(
+                  //컨트롤러의 변화를 감지한다. 
+                  animation: _animationController,
+                  //builder = 함수. animationcontroller의 값이 변할 때마다 실행됨.
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animationController.value,
+                      child: AnimatedOpacity(
+                        opacity: _isPaused ? 1 : 0,
+                        duration: _animationDuration,
+                        child: const FaIcon(
+                          FontAwesomeIcons.play,
+                          color: Colors.white,
+                          size: Sizes.size52,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
