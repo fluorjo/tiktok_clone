@@ -26,13 +26,26 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
       setState(() {});
     }
   }
+//영상 끝난 뒤 다음 영상 바로 재생
+  // void _onVideoFinished() {
+  //   _pageController.nextPage(
+  //     duration: _scrollDuration,
+  //     curve: _scrollCurve,
+  //   );
+  //  }
 
+//영상 끝난 뒤 정지
+  // void _onVideoFinished() {
+  //   return;
+  // }
+
+// 영상 끝난 뒤 반복재생
   void _onVideoFinished() {
     _pageController.nextPage(
       duration: _scrollDuration,
       curve: _scrollCurve,
     );
-  }
+   }
 
   @override
   void dispose() {
@@ -48,7 +61,7 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
       onPageChanged: _onPageChanged,
       itemCount: _itemCount,
       itemBuilder: (context, index) =>
-          VideoPost(onVideoFinished: _onVideoFinished,index:index),
+          VideoPost(onVideoFinished: _onVideoFinished, index: index),
       //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
     );
   }
