@@ -54,14 +54,22 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   }
 
   Future<void> _onRefresh() {
+    //Future.delayed = future가 있는 것처럼 하는 것.
     return Future.delayed(
-      Duration(seconds: 5),
+      const Duration(seconds: 2),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      //위치 설정
+      displacement: 40,
+      edgeOffset: 10,
+
+      color: Theme.of(context).primaryColor,
+      strokeWidth: 3,
+
       //화면을 당길 때 실행되는 callback.
       //★★★ 반드시 future를 반환해야 한다. async 쓰거나.
       onRefresh: _onRefresh,
