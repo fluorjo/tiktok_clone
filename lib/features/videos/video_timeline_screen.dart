@@ -45,7 +45,7 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
       duration: _scrollDuration,
       curve: _scrollCurve,
     );
-   }
+  }
 
   @override
   void dispose() {
@@ -53,16 +53,27 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
     super.dispose();
   }
 
+  Future<void> _onRefresh() {
+    return Future.delayed(
+      Duration(seconds: 5),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: _pageController,
-      scrollDirection: Axis.vertical,
-      onPageChanged: _onPageChanged,
-      itemCount: _itemCount,
-      itemBuilder: (context, index) =>
-          VideoPost(onVideoFinished: _onVideoFinished, index: index),
-      //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
+    return RefreshIndicator(
+      //화면을 당길 때 실행되는 callback.
+      //★★★ 반드시 future를 반환해야 한다. async 쓰거나.
+      onRefresh: _onRefresh,
+      child: PageView.builder(
+        controller: _pageController,
+        scrollDirection: Axis.vertical,
+        onPageChanged: _onPageChanged,
+        itemCount: _itemCount,
+        itemBuilder: (context, index) =>
+            VideoPost(onVideoFinished: _onVideoFinished, index: index),
+        //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
+      ),
     );
   }
 }
