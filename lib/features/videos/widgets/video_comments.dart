@@ -37,6 +37,8 @@ class _VideoCommentsState extends State<VideoComments> {
           ],
         ),
         body: ListView.builder(
+          padding: const EdgeInsets.symmetric(
+              vertical: Sizes.size10, horizontal: Sizes.size16),
           itemCount: 10,
           itemBuilder: (context, index) => Container(
             child: const Text('comment'),
