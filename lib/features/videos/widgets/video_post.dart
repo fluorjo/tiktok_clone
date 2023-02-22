@@ -104,6 +104,7 @@ class _VideoPostState extends State<VideoPost>
 //여기 future는 유저가 댓글 창을 닫으면 resolve됨.
     await showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       //투명으로 해서 scaffold를 보게 함. 
       backgroundColor: Colors.transparent,
       builder: (context) => VideoComments(),

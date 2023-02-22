@@ -17,7 +17,9 @@ class _VideoCommentsState extends State<VideoComments> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
+      height: size.height * 0.7,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Sizes.size14),
@@ -38,70 +40,106 @@ class _VideoCommentsState extends State<VideoComments> {
           ],
         ),
         //댓글들 간에 간격 넣기 위해 separated로.
-        body: ListView.separated(
-          padding: const EdgeInsets.symmetric(
-            vertical: Sizes.size10,
-            horizontal: Sizes.size16,
-          ),
-          itemCount: 10,
-          itemBuilder: (context, index) => Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CircleAvatar(
-                radius: 18,
-                child: Text('아'),
+        body: Stack(
+          children: [
+            ListView.separated(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size10,
+                horizontal: Sizes.size16,
               ),
-              Gaps.h10,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '작성자',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: Sizes.size14,
+              itemCount: 10,
+              itemBuilder: (context, index) => Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 18,
+                    child: Text('아'),
+                  ),
+                  Gaps.h10,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '작성자',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Sizes.size14,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                        Gaps.v3,
+                        const Text('댓글'),
+                      ],
+                    ),
+                  ),
+                  Gaps.h10,
+                  Column(
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.heart,
+                        size: Sizes.size20,
                         color: Colors.grey.shade500,
                       ),
-                    ),
-                    Gaps.v3,
-                    const Text('댓글'),
-                  ],
-                ),
-              ),
-              Gaps.h10,
-              Column(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.heart,
-                    size: Sizes.size20,
-                    color: Colors.grey.shade500,
-                  ),
-                  Gaps.v2,
-                  Text(
-                    '52.2K',
-                    style: TextStyle(
-                      color: Colors.grey.shade500,
-                    ),
+                      Gaps.v2,
+                      Text(
+                        '52.2K',
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-          separatorBuilder: (BuildContext context, int index) => Gaps.v10,
-        ),
-        bottomNavigationBar:  BottomAppBar(
-          color: Colors.white,
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.grey.shade500,
-                foregroundColor: Colors.white,
-                child: Text('아'),
+              separatorBuilder: (BuildContext context, int index) => Gaps.v10,
+            ),
+            Positioned(
+              bottom: 0,
+              width: size.width,
+              child: BottomAppBar(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Sizes.size16,
+                    vertical: Sizes.size10,
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey.shade500,
+                        foregroundColor: Colors.white,
+                        child: const Text('아'),
+                      ),
+                      Gaps.h10,
+                      Expanded(
+                        child: TextField(
+                          cursorColor: Theme.of(context).primaryColor,
+                          decoration: InputDecoration(
+                            hintText: 'Write a comment...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                Sizes.size12,
+                              ),
+                              //테두리 없애기.
+                              borderSide: BorderSide.none
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey.shade200,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: Sizes.size10,
+                              vertical: Sizes.size12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
