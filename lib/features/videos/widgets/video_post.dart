@@ -82,6 +82,10 @@ class _VideoPostState extends State<VideoPost>
         !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
+    //info.visibleFraction==0 안 보인다.
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      _onTogglePause();
+    }
   }
 
   void _onTogglePause() {
@@ -105,7 +109,7 @@ class _VideoPostState extends State<VideoPost>
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      //투명으로 해서 scaffold를 보게 함. 
+      //투명으로 해서 scaffold를 보게 함.
       backgroundColor: Colors.transparent,
       builder: (context) => VideoComments(),
     );
