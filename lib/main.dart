@@ -19,6 +19,10 @@ class TikTokApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color(0xFFE9435A),
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Color(0xFFE9435A),
+             //selectionColor: Color(0xFFE9435A),
+            ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           foregroundColor: Colors.black,
@@ -30,7 +34,7 @@ class TikTokApp extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      home:  MainNavigationScreen(),
+      home: const MainNavigationScreen(),
       // home: const SignUpScreen(),
     );
   }

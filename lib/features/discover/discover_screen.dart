@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -13,18 +14,43 @@ final tabs = [
   "Brands",
 ];
 
-class DiscoverScreen extends StatelessWidget {
+class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
+
+  @override
+  State<DiscoverScreen> createState() => _DiscoverScreenState();
+}
+
+class _DiscoverScreenState extends State<DiscoverScreen> {
+  final TextEditingController _textEditingController =
+      TextEditingController(text: "Initial Text");
+
+  void _onSearchChanged(String value) {
+    print(value);
+  }
+
+  void _onSearchSubmitted(String value) {
+    print(value);
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: const Text(
-            'Discover',
+          title: CupertinoSearchTextField(
+            controller: _textEditingController,
+            onChanged: _onSearchChanged,
+            onSubmitted: _onSearchSubmitted,
           ),
           //특정 크기의 위젯을 가지려 하지만 자식 요소의 크기를 제한하지는 않는 위젯.
           bottom: TabBar(
@@ -51,6 +77,7 @@ class DiscoverScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             GridView.builder(
+              keyboardDismissBehavior:ScrollViewKeyboardDismissBehavior.onDrag,
               itemCount: 20,
               padding: const EdgeInsets.all(
                 Sizes.size6,
@@ -65,13 +92,19 @@ class DiscoverScreen extends StatelessWidget {
                   //assetnetwork - placeholder로 보여줄 이미지가 asset 폴더 안에 있다.
                   Column(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: FadeInImage.assetNetwork(
-                        fit: BoxFit.cover,
-                        placeholder: 'assets/images/placeholder.jpg',
-                        image:
-                            'https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60'),
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Sizes.size4),
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 9 / 16,
+                      child: FadeInImage.assetNetwork(
+                          fit: BoxFit.cover,
+                          placeholder: 'assets/images/placeholder.jpg',
+                          image:
+                              'https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60'),
+                    ),
                   ),
                   Gaps.v10,
                   const Text(
