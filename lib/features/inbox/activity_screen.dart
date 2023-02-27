@@ -72,11 +72,11 @@ class _ActivityScreenState extends State<ActivityScreen>
     setState(() {});
   }
 
-  void _toggleAnimations() async{
+  void _toggleAnimations() async {
     if (_animationController.isCompleted) {
       await _animationController.reverse();
     } else {
-       _animationController.forward();
+      _animationController.forward();
     }
 
     setState(() {
@@ -91,6 +91,7 @@ class _ActivityScreenState extends State<ActivityScreen>
         title: GestureDetector(
           onTap: _toggleAnimations,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('All activity'),
