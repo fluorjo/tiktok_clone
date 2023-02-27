@@ -3,6 +3,7 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
+import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:tiktok_clone/features/inbox/chats_screen.dart';
 import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
@@ -40,7 +41,7 @@ class TikTokApp extends StatelessWidget {
         ),
       ),
       // home: const MainNavigationScreen(),
-      home: const ChatsScreen(),
+      home: const ChatDetailScreen(),
       // home: const SignUpScreen(),
     );
   }
