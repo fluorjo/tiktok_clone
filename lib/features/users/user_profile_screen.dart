@@ -207,7 +207,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   mainAxisSpacing: Sizes.size2,
                   childAspectRatio: 9 / 16,
                 ),
-                itemBuilder: (context, index) => Column(
+                itemBuilder: (context, index) => Stack(
                   children: [
                     AspectRatio(
                       aspectRatio: 10 / 16,
@@ -216,6 +216,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         placeholder: "assets/images/placeholder.jpg",
                         image:
                             "https://newsimg.sedaily.com/2022/08/25/269XPADPDI_1.jpg",
+                      ),
+                    ),
+                    const Positioned(
+                      bottom: 27,
+                      left: 10,
+                      child: Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.play,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            '  4.1M',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Gaps.v10,

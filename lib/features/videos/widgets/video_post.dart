@@ -77,6 +77,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    //mounted 되지 않았다 = 사용자들에게 더 이상 보이지 않는다. 
     if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
