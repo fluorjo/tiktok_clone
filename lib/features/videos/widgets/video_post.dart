@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -48,7 +49,11 @@ class _VideoPostState extends State<VideoPost>
 
     //비디오 반복
     await _videoPlayerController.setLooping(true);
-
+    //kIsWeb - 이 앱이 웹에서 작동하도록 컴파일됐는지 나타내는 constant
+if (kIsWeb) {
+await   _videoPlayerController.setVolume(0);
+  
+}
     _videoPlayerController.addListener(_onVideoChange);
 
     setState(() {});
