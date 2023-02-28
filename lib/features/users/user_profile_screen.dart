@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/constants/sizes.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -14,10 +15,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       slivers: [
         SliverAppBar(
           //위로 올릴 때 앱바가 천천히 다시 나타난다.
-          floating: true,
+          // floating: true,
 
-          //좀만 올라가도 앱바 확 내림. 반드시 floating true랑 같이 써야 함. 
-          snap: true,
+          //좀만 올라가도 앱바 확 내림. 반드시 floating true랑 같이 써야 함.
+          // snap: true,
 
           //밑으로 내리면 배경색깔과 타이틀을 보여줌.
           pinned: true,
@@ -53,6 +54,26 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           ),
           itemExtent: 100,
+        ),
+        SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+            childCount: 50,
+            (context, index) => Container(
+              color: Colors.blue[100 * (index % 9)],
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Item $index',
+                ),
+              ),
+            ),
+          ),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 100,
+            mainAxisSpacing: Sizes.size20,
+            crossAxisSpacing: Sizes.size20,
+            childAspectRatio: 1,
+          ),
         ),
       ],
     );
