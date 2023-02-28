@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,58 +105,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
               title: const Text(
-                'Log out(ios)',
-              ),
-              textColor: Colors.red,
-              onTap: () {
-                showCupertinoDialog(
-                  context: context,
-                  builder: (context) => CupertinoAlertDialog(
-                    title: const Text(
-                      'Are you sure?',
-                    ),
-                    content: const Text("Don't go~"),
-                    actions: [
-                      CupertinoDialogAction(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('No'),
-                      ),
-                      CupertinoDialogAction(
-                        onPressed: () => Navigator.of(context).pop(),
-                        isDestructiveAction: true,
-                        child: const Text('Yes'),
-                      ),
-                    ],
-                  ),
-                );
-              }),
-          ListTile(
-              title: const Text(
                 'Log out(android)',
               ),
               textColor: Colors.red,
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    icon: const FaIcon(FontAwesomeIcons.angular),
-                    title: const Text(
-                      'Are you sure?',
+                if (Platform.isAndroid) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      icon: const FaIcon(FontAwesomeIcons.angular),
+                      title: const Text(
+                        'Are you sure?',
+                      ),
+                      content: const Text("Don't go~"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Yes'),
+                        ),
+                      ],
                     ),
-                    content: const Text("Don't go~"),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('No'),
+                  );
+                } else {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => CupertinoAlertDialog(
+                      title: const Text(
+                        'Are you sure?',
                       ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Yes'),
-                      ),
-                    ],
-                  ),
-                );
+                      content: const Text("Don't go~"),
+                      actions: [
+                        CupertinoDialogAction(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('No'),
+                        ),
+                        CupertinoDialogAction(
+                          onPressed: () => Navigator.of(context).pop(),
+                          isDestructiveAction: true,
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
               }),
+
           const AboutListTile(),
         ],
       ),
