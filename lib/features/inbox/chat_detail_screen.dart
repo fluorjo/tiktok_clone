@@ -120,16 +120,99 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: BottomAppBar(
-              color: Colors.grey.shade50,
+              padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size10,
+                vertical: Sizes.size10,
+              ),
+              color: Colors.grey.shade200,
               child: Row(
                 children: [
-                  const Expanded(
-                    child: TextField(),
+                  Expanded(
+                    child: SizedBox(
+                      height: Sizes.size44,
+                      child: TextField(
+                        textInputAction: TextInputAction.newline,
+                        minLines: null,
+                        maxLines: null,
+                        cursorColor: Theme.of(context).primaryColor,
+                        decoration: InputDecoration(
+                          hintText: 'Send a message...',
+                          border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(
+                                  Sizes.size20,
+                                ),
+                                topRight: Radius.circular(
+                                  Sizes.size20,
+                                ),
+                                bottomLeft: Radius.circular(
+                                  Sizes.size20,
+                                ),
+                                bottomRight: Radius.circular(
+                                  Sizes.size1,
+                                ),
+                              ),
+                              //테두리 없애기.
+                              borderSide: BorderSide.none),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size10,
+                            vertical: Sizes.size12,
+                          ),
+                          suffixIcon: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.faceSmile,
+                                color: Colors.grey.shade900,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: AlignmentDirectional.bottomStart,
+                    width: 10,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                    ),
+                    child: Container(
+                      width: 5,
+                      height: 5,
+                      alignment: Alignment.bottomLeft,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(
+                            Sizes.size20,
+                          ),
+                          bottomRight: Radius.circular(
+                            Sizes.size6,
+                          ),
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   Gaps.h20,
                   Container(
+                    width: Sizes.size32,
+                    height: Sizes.size32,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                    alignment: Alignment.center,
                     child: const FaIcon(
-                      FontAwesomeIcons.paperPlane,
+                      size: Sizes.size20,
+                      color: Colors.white,
+                      FontAwesomeIcons.solidPaperPlane,
                     ),
                   ),
                 ],
