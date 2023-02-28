@@ -15,6 +15,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         SliverAppBar(
           floating: true,
           stretch: true,
+          snap: true,
           pinned: true,
           backgroundColor: Colors.teal,
           collapsedHeight: 80,

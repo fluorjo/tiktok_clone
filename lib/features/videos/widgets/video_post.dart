@@ -77,6 +77,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
@@ -111,7 +112,7 @@ class _VideoPostState extends State<VideoPost>
       isScrollControlled: true,
       //투명으로 해서 scaffold를 보게 함.
       backgroundColor: Colors.transparent,
-      builder: (context) => VideoComments(),
+      builder: (context) => const VideoComments(),
     );
     _onTogglePause();
   }
