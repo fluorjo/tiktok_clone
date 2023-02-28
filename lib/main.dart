@@ -8,6 +8,7 @@ import 'package:tiktok_clone/features/inbox/chats_screen.dart';
 import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
+import 'package:tiktok_clone/features/settings/settings_screen.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -40,7 +41,7 @@ class TikTokApp extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const SettingsScreen(),
       //home: const ChatDetailScreen(),
       // home: const SignUpScreen(),
     );
