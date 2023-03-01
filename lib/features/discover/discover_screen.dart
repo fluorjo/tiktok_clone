@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 final tabs = [
   "Top",
@@ -51,13 +52,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         appBar: AppBar(
           elevation: 1,
           title: ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: Breakpoints.sm,
             ),
             child: CupertinoSearchTextField(
               controller: _textEditingController,
               onChanged: _onSearchChanged,
               onSubmitted: _onSearchSubmitted,
+              style: TextStyle(
+                color: isDarkMode(context) ? Colors.white : Colors.black,
+              ),
             ),
           ),
           //특정 크기의 위젯을 가지려 하지만 자식 요소의 크기를 제한하지는 않는 위젯.
@@ -71,15 +75,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),
-            unselectedLabelColor: Colors.grey.shade500,
             tabs: [
               for (var tab in tabs)
                 Tab(
                   text: tab,
                 ),
             ],
-            labelColor: Colors.black,
-            indicatorColor: Colors.black,
+            indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
           ),
         ),
         body: TabBarView(
@@ -130,39 +132,42 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Gaps.v8,
-                    if(constraints.maxWidth<200 ||constraints.maxWidth>250)
-                    DefaultTextStyle(
-                      style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w600),
-                      child: Row(
-                        children: [
-                          const CircleAvatar(
-                            radius: 12,
-                            backgroundImage: NetworkImage(
-                                'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/567/2b83243a50d716985dbca58c37910ff6_res.jpeg'),
-                          ),
-                          Gaps.h4,
-                          const Expanded(
-                            child: Text(
-                              '아아아아아주 기이이이이인 이르으으으으음',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                    if (constraints.maxWidth < 200 ||
+                        constraints.maxWidth > 250)
+                      DefaultTextStyle(
+                        style: TextStyle(
+                            color: isDarkMode(context)
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade600,
+                            fontWeight: FontWeight.w600),
+                        child: Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 12,
+                              backgroundImage: NetworkImage(
+                                  'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/567/2b83243a50d716985dbca58c37910ff6_res.jpeg'),
                             ),
-                          ),
-                          Gaps.h4,
-                          FaIcon(
-                            FontAwesomeIcons.heart,
-                            size: Sizes.size16,
-                            color: Colors.grey.shade600,
-                          ),
-                          Gaps.h2,
-                          const Text(
-                            '2.5M',
-                          ),
-                        ],
+                            Gaps.h4,
+                            const Expanded(
+                              child: Text(
+                                '아아아아아주 기이이이이인 이르으으으으음',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Gaps.h4,
+                            FaIcon(
+                              FontAwesomeIcons.heart,
+                              size: Sizes.size16,
+                              color: Colors.grey.shade600,
+                            ),
+                            Gaps.h2,
+                            const Text(
+                              '2.5M',
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
