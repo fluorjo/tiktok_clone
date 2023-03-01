@@ -50,10 +50,9 @@ class _VideoPostState extends State<VideoPost>
     //비디오 반복
     await _videoPlayerController.setLooping(true);
     //kIsWeb - 이 앱이 웹에서 작동하도록 컴파일됐는지 나타내는 constant
-if (kIsWeb) {
-await   _videoPlayerController.setVolume(0);
-  
-}
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
     _videoPlayerController.addListener(_onVideoChange);
 
     setState(() {});
@@ -81,8 +80,17 @@ await   _videoPlayerController.setVolume(0);
     // widget.onVideoFinished();
   }
 
+  void _onMuteTap() {
+    if (_videoPlayerController.value.volume != 0) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+    setState(() {});
+  }
+
   void _onVisibilityChanged(VisibilityInfo info) {
-    //mounted 되지 않았다 = 사용자들에게 더 이상 보이지 않는다. 
+    //mounted 되지 않았다 = 사용자들에게 더 이상 보이지 않는다.
     if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
@@ -165,6 +173,21 @@ await   _videoPlayerController.setVolume(0);
                     );
                   },
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            right: 20,
+            child: GestureDetector(
+              onTap: () => _onMuteTap(),
+              child: VideoButton(
+                icon: _videoPlayerController.value.volume != 0
+                    ? FontAwesomeIcons.volumeXmark
+                    : FontAwesomeIcons.volumeHigh,
+                text: _videoPlayerController.value.volume != 0
+                    ? 'Mute'
+                    : 'Unmute',
               ),
             ),
           ),
