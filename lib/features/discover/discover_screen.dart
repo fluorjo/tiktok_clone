@@ -85,7 +85,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               padding: const EdgeInsets.all(
                 Sizes.size6,
               ),
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: width > Breakpoints.lg ? 5 : 2,
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size10,
@@ -93,66 +93,73 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ),
               itemBuilder: (context, index) =>
                   //assetnetwork - placeholder로 보여줄 이미지가 asset 폴더 안에 있다.
-                  Column(
-                children: [
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Sizes.size4),
+                  LayoutBuilder(
+                builder: (
+                  context,
+                  constraints,
+                ) =>
+                    Column(
+                  children: [
+                    Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Sizes.size4),
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                            placeholder: 'assets/images/placeholder.jpg',
+                            image:
+                                'https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60'),
+                      ),
                     ),
-                    child: AspectRatio(
-                      aspectRatio: 9 / 16,
-                      child: FadeInImage.assetNetwork(
-                          fit: BoxFit.cover,
-                          placeholder: 'assets/images/placeholder.jpg',
-                          image:
-                              'https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60'),
+                    Gaps.v10,
+                    const Text(
+                      '긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Gaps.v10,
-                  const Text(
-                    '긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장 긴문장',
-                    style: TextStyle(
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Gaps.v8,
-                  DefaultTextStyle(
-                    style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w600),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: 12,
-                          backgroundImage: NetworkImage(
-                              'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/567/2b83243a50d716985dbca58c37910ff6_res.jpeg'),
-                        ),
-                        Gaps.h4,
-                        const Expanded(
-                          child: Text(
-                            '아아아아아주 기이이이이인 이르으으으으음',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Gaps.h4,
-                        FaIcon(
-                          FontAwesomeIcons.heart,
-                          size: Sizes.size16,
+                    Gaps.v8,
+                    if(constraints.maxWidth<200 ||constraints.maxWidth>250)
+                    DefaultTextStyle(
+                      style: TextStyle(
                           color: Colors.grey.shade600,
-                        ),
-                        Gaps.h2,
-                        const Text(
-                          '2.5M',
-                        ),
-                      ],
+                          fontWeight: FontWeight.w600),
+                      child: Row(
+                        children: [
+                          const CircleAvatar(
+                            radius: 12,
+                            backgroundImage: NetworkImage(
+                                'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/567/2b83243a50d716985dbca58c37910ff6_res.jpeg'),
+                          ),
+                          Gaps.h4,
+                          const Expanded(
+                            child: Text(
+                              '아아아아아주 기이이이이인 이르으으으으음',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Gaps.h4,
+                          FaIcon(
+                            FontAwesomeIcons.heart,
+                            size: Sizes.size16,
+                            color: Colors.grey.shade600,
+                          ),
+                          Gaps.h2,
+                          const Text(
+                            '2.5M',
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             for (var tab in tabs.skip(1))
