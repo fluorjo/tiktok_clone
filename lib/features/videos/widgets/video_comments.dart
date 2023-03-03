@@ -41,9 +41,7 @@ class _VideoCommentsState extends State<VideoComments> {
         borderRadius: BorderRadius.circular(Sizes.size14),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
           automaticallyImplyLeading: false,
           title: const Text("22796 comments"),
           actions: [
