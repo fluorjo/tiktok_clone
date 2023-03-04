@@ -127,6 +127,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       style: TextStyle(
                         fontSize: Sizes.size16,
                         fontWeight: FontWeight.bold,
+                        height: 1.1,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

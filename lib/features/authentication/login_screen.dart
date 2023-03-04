@@ -28,9 +28,9 @@ class LoginScreen extends StatelessWidget {
             horizontal: Sizes.size40,
           ),
           child: Column(
-            children:  [
+            children: [
               Gaps.v80,
-              Text(
+              const Text(
                 'Log in for TikTok',
                 style: TextStyle(
                   fontSize: Sizes.size24,
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Gaps.v20,
-              Opacity(
+              const Opacity(
                 opacity: 0.6,
                 child: Text(
                   "Manage your account, check notifications, comment on videos, and more.",
@@ -51,23 +51,25 @@ class LoginScreen extends StatelessWidget {
               Gaps.v40,
               GestureDetector(
                 onTap: () => _onEmailLoginTap(context),
-                child: AuthButton(
+                child: const AuthButton(
                     icon: FaIcon(FontAwesomeIcons.user),
                     text: "Use email & password"),
               ),
               Gaps.v16,
-              AuthButton(
+              const AuthButton(
                   icon: FaIcon(FontAwesomeIcons.apple),
                   text: "Continue with Apple"),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: Container(
           color: isDarkMode(context) ? null : Colors.grey.shade50,
-          elevation: 2,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: Sizes.size36),
+            padding: const EdgeInsets.only(
+              top: Sizes.size32,
+              bottom: Sizes.size64,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

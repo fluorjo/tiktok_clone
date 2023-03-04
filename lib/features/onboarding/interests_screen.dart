@@ -145,22 +145,20 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-          elevation: 2,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: Sizes.size40,
-              top: Sizes.size16,
-              left: Sizes.size24,
-              right: Sizes.size24,
-            ),
-            child: GestureDetector(
-              child: CupertinoButton(
-                  onPressed: _onNextTap,
-                  color: Theme.of(context).primaryColor,
-                  child: const Text('Next')),
-            ),
-          )),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+          bottom: Sizes.size40,
+          top: Sizes.size16,
+          left: Sizes.size24,
+          right: Sizes.size24,
+        ),
+        child: GestureDetector(
+          child: CupertinoButton(
+              onPressed: _onNextTap,
+              color: Theme.of(context).primaryColor,
+              child: const Text('Next')),
+        ),
+      ),
     );
   }
 }

@@ -126,11 +126,14 @@ class _VideoCommentsState extends State<VideoComments> {
               Positioned(
                 bottom: 0,
                 width: size.width,
-                child: BottomAppBar(
+                child: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size16,
-                      vertical: Sizes.size10,
+                    padding: const EdgeInsets.only(
+                      left: Sizes.size16,
+                      right: Sizes.size16,
+                      top: Sizes.size10,
+                      bottom: Sizes.size48,
                     ),
                     child: Row(
                       children: [
@@ -151,7 +154,7 @@ class _VideoCommentsState extends State<VideoComments> {
                               expands: true,
                               minLines: null,
                               maxLines: null,
-
+                
                               cursorColor: Theme.of(context).primaryColor,
                               decoration: InputDecoration(
                                 hintText: 'Write a comment...',
@@ -176,7 +179,7 @@ class _VideoCommentsState extends State<VideoComments> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      FaIcon( 
+                                      FaIcon(
                                         FontAwesomeIcons.at,
                                         color: isDark
                                             ? Colors.grey.shade500
@@ -202,8 +205,7 @@ class _VideoCommentsState extends State<VideoComments> {
                                           onTap: _stopWriting,
                                           child: FaIcon(
                                             FontAwesomeIcons.circleArrowUp,
-                                            color:
-                                                Theme.of(context).primaryColor,
+                                            color: Theme.of(context).primaryColor,
                                           ),
                                         ),
                                     ],

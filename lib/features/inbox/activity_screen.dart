@@ -166,7 +166,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                         shape: BoxShape.circle,
                         color: isDark
                             ? Colors.grey.shade800
-                            : Colors.grey.shade400,
+                            : Colors.white,
                         border: Border.all(
                             color: isDark
                                 ? Colors.grey.shade800
