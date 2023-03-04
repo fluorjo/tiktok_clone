@@ -23,6 +23,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Localizations.localeOf(context);
     return OrientationBuilder(builder: (
       BuildContext context,
       //orientation=디바이스 방향을 보여줌.
