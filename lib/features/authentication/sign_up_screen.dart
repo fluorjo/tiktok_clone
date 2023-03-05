@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                 Opacity(
                   opacity: 0.7,
                   child: Text(
-                    S.of(context).signUpSubtitle,
+                    S.of(context).signUpSubtitle(55),
                     style: Theme.of(context).textTheme.titleMedium,
                     // TextStyle(
                     //   fontSize: Sizes.size16,
@@ -124,7 +124,7 @@ class SignUpScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () => _onLoginTap(context),
                 child: Text(
-                  S.of(context).login,
+                S.of(context).login("male"),
                   style: TextStyle(
                     fontSize: Sizes.size16,
                     fontWeight: FontWeight.w600,

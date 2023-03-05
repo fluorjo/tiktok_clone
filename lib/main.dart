@@ -24,6 +24,8 @@ class TikTokApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //언어설정 바로 바꾸는 코드
+    S.load(const Locale('en'));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
