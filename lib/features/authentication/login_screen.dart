@@ -4,6 +4,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_form_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/utils.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -51,14 +52,14 @@ class LoginScreen extends StatelessWidget {
               Gaps.v40,
               GestureDetector(
                 onTap: () => _onEmailLoginTap(context),
-                child: const AuthButton(
+                child:  AuthButton(
                     icon: FaIcon(FontAwesomeIcons.user),
-                    text: "Use email & password"),
+                    text: S.of(context).emailPasswordButton),
               ),
               Gaps.v16,
-              const AuthButton(
+               AuthButton(
                   icon: FaIcon(FontAwesomeIcons.apple),
-                  text: "Continue with Apple"),
+                  text: S.of(context).appleButton),
             ],
           ),
         ),
