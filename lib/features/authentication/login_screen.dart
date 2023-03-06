@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop();
+    Navigator.of(context).pop("hello");
   }
 
   void _onEmailLoginTap(BuildContext context) {
@@ -52,13 +52,13 @@ class LoginScreen extends StatelessWidget {
               Gaps.v40,
               GestureDetector(
                 onTap: () => _onEmailLoginTap(context),
-                child:  AuthButton(
-                    icon: FaIcon(FontAwesomeIcons.user),
+                child: AuthButton(
+                    icon: const FaIcon(FontAwesomeIcons.user),
                     text: S.of(context).emailPasswordButton),
               ),
               Gaps.v16,
-               AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.apple),
+              AuthButton(
+                  icon: const FaIcon(FontAwesomeIcons.apple),
                   text: S.of(context).appleButton),
             ],
           ),
