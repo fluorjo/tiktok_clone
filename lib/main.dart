@@ -8,6 +8,7 @@ import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
+import 'package:tiktok_clone/router.dart';
 
 void main() async {
   //위젯과 엔진의 연결. 앱을 실행하기 전에 bind, widget, engine을 초기화하고 연결함.
@@ -28,7 +29,8 @@ class TikTokApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //언어설정 바로 바꾸는 코드
     //S.load(const Locale('ko'));
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'TikTok Clone',
       localizationsDelegates: const [
@@ -110,13 +112,7 @@ class TikTokApp extends StatelessWidget {
           color: Colors.grey.shade900,
         ),
       ),
-      initialRoute:SignUpScreen.routeName,
-      routes: {
-        SignUpScreen.routeName: (context) => const SignUpScreen(),
-        UsernameScreen.routeName: (context) => const UsernameScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        EmailScreen.routeName:(context) => const EmailScreen()
-      },
+
     );
   }
 }
