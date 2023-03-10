@@ -50,6 +50,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     await _cameraController.initialize();
 
+    //ios에서만 필요. 이거 안 하면 싱크 문제 생김.
+    await _cameraController.prepareForVideoRecording();
+
     _flashMode = _cameraController.value.flashMode;
   }
 
@@ -102,14 +105,20 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     });
   }
 
-  void _startRecording(TapDownDetails _) {
+  Future<void> _startRecording(TapDownDetails _) async {
+    if (_cameraController.value.isRecordingVideo) return;
+
+    await _cameraController.startVideoRecording();
     _buttonAnimationController.forward();
     _progressAnimationController.forward();
   }
 
-  void _stopRecording() {
+  Future<void> _stopRecording() async {
+    if (!_cameraController.value.isRecordingVideo) return;
+
     _buttonAnimationController.reverse();
     _progressAnimationController.reset();
+    final file = await _cameraController.stopVideoRecording();
   }
 
   @override
