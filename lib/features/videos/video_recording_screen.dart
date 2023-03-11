@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   const VideoRecordingScreen({super.key});
@@ -46,6 +47,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _cameraController = CameraController(
       cameras[_isSelfieMode ? 1 : 0],
       ResolutionPreset.ultraHigh,
+      enableAudio: false,
     );
 
     await _cameraController.initialize();
@@ -118,7 +120,25 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     _buttonAnimationController.reverse();
     _progressAnimationController.reset();
-    final file = await _cameraController.stopVideoRecording();
+
+    final video = await _cameraController.stopVideoRecording();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _progressAnimationController.dispose();
+    _buttonAnimationController.dispose();
+    _cameraController.dispose();
+    super.dispose();
   }
 
   @override
@@ -227,7 +247,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
         ));
