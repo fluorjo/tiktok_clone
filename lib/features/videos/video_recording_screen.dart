@@ -15,7 +15,7 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
   late final AnimationController _buttonAnimationController =
@@ -58,6 +58,10 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController.prepareForVideoRecording();
 
     _flashMode = _cameraController.value.flashMode;
+
+    setState(() {
+      
+    });
   }
 
   Future<void> initPermissions() async {
@@ -82,6 +86,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     // TODO: implement initState
     super.initState();
     initPermissions();
+
+    //유저가 앱에서 나갔음을 알고, 돌아올 때는 this 클래스 = 바로 위 클래스를 실행한다.
+    WidgetsBinding.instance.addObserver(this);
     _progressAnimationController.addListener(() {
       setState(() {});
     });
@@ -144,6 +151,17 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _buttonAnimationController.dispose();
     _cameraController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
   }
 
   Future<void> _onPickVideoPressed() async {
