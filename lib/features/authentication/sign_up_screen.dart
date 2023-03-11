@@ -12,41 +12,20 @@ class SignUpScreen extends StatelessWidget {
   static const routeURL = "/";
   static const routeName = "signUp";
 
-
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) async {
     //context 객체를 확장시켜서 push 메서드가 생겼다?
-    context.push(LoginScreen.routeName);
+    context.pushNamed(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    context.pushNamed(UsernameScreen.routeName);
-
-    /* PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 150),
-          reverseTransitionDuration: const Duration(milliseconds: 150),
-          pageBuilder: (BuildContext context, Animation<double> animation,
-                  Animation<double> secondaryAnimation) =>
-              const UsernameScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final offsetAnimation = Tween(
-              begin: const Offset(0, -1),
-              end: Offset.zero,
-            ).animate(animation);
-            final opacityAnimation = Tween(
-              begin: 0.5,
-              end: 1.0,
-            ).animate(animation);
-            return SlideTransition(
-              position: offsetAnimation,
-              child: FadeTransition(
-                opacity: opacityAnimation,
-                child: child,
-              ),
-            );
-          }),
-    );*/
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
+      ),
+    );
   }
 
   @override
