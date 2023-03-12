@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
@@ -24,10 +25,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
         _formKey.currentState!.save();
         //pushAndRemoveUntil : push한 뒤 기존 화면들을 제거한다.
         //반드시 다 지우는 건 아니고 원하는 개수 지정 가능.
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const InterestsScreen(),
-            ), (route) =>false);
+        context.goNamed(InterestsScreen.routeName);
         // print(formData.values);
         // print(formData);
       }
@@ -108,7 +106,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 Gaps.v28,
                 GestureDetector(
                   onTap: _onSubmitTap,
-                  child: FormButton(
+                  child: const FormButton(
                     disabled: false,
                     FormButtonText: 'Log in',
                   ),
