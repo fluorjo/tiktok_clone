@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/common/widgets/main_navigation/widgets/video_configuration/video_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
@@ -134,6 +135,8 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   Widget build(BuildContext context) {
+    VideoConfig.of(context).autoMute;
+
     return VisibilityDetector(
       onVisibilityChanged: _onVisibilityChanged,
       key: Key('${widget.index}'),
@@ -183,15 +186,17 @@ class _VideoPostState extends State<VideoPost>
             child: GestureDetector(
               onTap: () => _onMuteTap(),
               child: VideoButton(
-                icon: _videoPlayerController.value.volume != 0
+                icon: _videoPlayerController.value.volume == 0 ||
+                        VideoConfig.of(context).autoMute
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
-                text: _videoPlayerController.value.volume != 0
+                text: _videoPlayerController.value.volume == 0
                     ? 'Mute'
                     : 'Unmute',
               ),
             ),
           ),
+
           const Positioned(
             bottom: 20,
             left: 10,
@@ -232,14 +237,14 @@ class _VideoPostState extends State<VideoPost>
                   child: Text('아바타'),
                 ),
                 Gaps.v24,
-                 VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
                   text: S.of(context).likeCount(23123),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
-                  child:  VideoButton(
+                  child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
                     text: S.of(context).commentCount(1231111),
                   ),
