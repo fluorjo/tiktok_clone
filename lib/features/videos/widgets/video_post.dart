@@ -135,7 +135,7 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   Widget build(BuildContext context) {
-    VideoConfig.of(context).autoMute;
+    VideoConfigData.of(context).autoMute;
 
     return VisibilityDetector(
       onVisibilityChanged: _onVisibilityChanged,
@@ -183,18 +183,14 @@ class _VideoPostState extends State<VideoPost>
           Positioned(
             top: 100,
             right: 20,
-            child: GestureDetector(
-              onTap: () => _onMuteTap(),
-              child: VideoButton(
-                icon: _videoPlayerController.value.volume == 0 ||
-                        VideoConfig.of(context).autoMute
-                    ? FontAwesomeIcons.volumeXmark
-                    : FontAwesomeIcons.volumeHigh,
-                text: _videoPlayerController.value.volume == 0
-                    ? 'Mute'
-                    : 'Unmute',
-              ),
-            ),
+            child: IconButton(
+                onPressed: VideoConfigData.of(context).toggleMuted,
+                icon: FaIcon(
+                  _videoPlayerController.value.volume == 0 ||
+                          VideoConfigData.of(context).autoMute
+                      ? FontAwesomeIcons.volumeXmark
+                      : FontAwesomeIcons.volumeHigh,
+                )),
           ),
 
           const Positioned(

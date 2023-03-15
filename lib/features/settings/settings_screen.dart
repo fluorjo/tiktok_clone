@@ -61,8 +61,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SwitchListTile.adaptive(
               activeColor: Colors.black,
-              value: VideoConfig.of(context).autoMute,
-              onChanged: (value) {},
+              value: VideoConfigData.of(context).autoMute,
+              onChanged: (value) {
+                VideoConfigData.of(context).toggleMuted();
+              },
               title: const Text(
                 'Auto Mute',
               ),
