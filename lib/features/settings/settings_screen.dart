@@ -36,17 +36,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         body: ListView(
           children: [
-            Switch.adaptive(
-              value: _notifications,
-              onChanged: _onNotificationChanged,
-            ),
-            CupertinoSwitch(
-              value: _notifications,
-              onChanged: _onNotificationChanged,
-            ),
-            Switch(
-              value: _notifications,
-              onChanged: _onNotificationChanged,
+            AnimatedBuilder(
+              animation: videoConfig,
+              builder:(context,child) =>SwitchListTile.adaptive(
+                activeColor: Colors.black,
+                value: videoConfig.autoMute,
+                onChanged: (value) {
+                  videoConfig.toggleAutoMute();
+                },
+                title: const Text(
+                  'Mute video',
+                ),
+                subtitle: const Text(
+                  'Video will be muted by default',
+                ),
+              ),
             ),
             SwitchListTile.adaptive(
               activeColor: Colors.black,
@@ -58,23 +62,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: const Text(
                 'subtitle',
               ),
-            ),
-            SwitchListTile.adaptive(
-              activeColor: Colors.black,
-              value: VideoConfigData.of(context).autoMute,
-              onChanged: (value) {
-                VideoConfigData.of(context).toggleMuted();
-              },
-              title: const Text(
-                'Auto Mute',
-              ),
-              subtitle: const Text(
-                'Videos will be muted by default',
-              ),
-            ),
-            Checkbox(
-              value: _notifications,
-              onChanged: _onNotificationChanged,
             ),
             CheckboxListTile(
               checkColor: Colors.white,
