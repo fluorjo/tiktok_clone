@@ -185,11 +185,10 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: IconButton(
               onPressed: () {
-                context.read<VideoConfig>().toggleIsMuted();
+               
               },
               icon: FaIcon(
-                _videoPlayerController.value.volume == 0 ||
-                        context.watch<VideoConfig>().isMuted
+                _videoPlayerController.value.volume == 0 || false
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
               ),
