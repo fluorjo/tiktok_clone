@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tiktok_clone/common/widgets/main_navigation/widgets/video_configuration/video_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_comments.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
@@ -74,6 +74,10 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+
+    context
+        .read<PlaybackConfigViewModel>()
+        .addListener(_onPlaybackConfigChanged);
   }
 
   @override
@@ -82,6 +86,16 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
 //statefulwidget의 프로퍼티를 state에서 접근.
     // widget.onVideoFinished();
+  }
+
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    final muted = context.read<PlaybackConfigViewModel>().muted;
+    if (muted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
   }
 
   void _onMuteTap() {
@@ -99,7 +113,10 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.play();
+      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
+      if (autoplay) {
+        _videoPlayerController.play();
+      }
     }
     //info.visibleFraction==0 안 보인다.
     if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
@@ -184,14 +201,17 @@ class _VideoPostState extends State<VideoPost>
             top: 100,
             right: 20,
             child: IconButton(
-              onPressed: () {
-               
-              },
               icon: FaIcon(
-                _videoPlayerController.value.volume == 0 || false
+                _videoPlayerController.value.volume == 0 ||
+                        context.watch<PlaybackConfigViewModel>().muted
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
               ),
+              onPressed: () {
+                context
+                    .read<PlaybackConfigViewModel>()
+                    .setMuted(!context.read<PlaybackConfigViewModel>().muted);
+              },
             ),
           ),
 
