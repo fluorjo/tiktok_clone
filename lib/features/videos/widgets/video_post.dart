@@ -30,6 +30,8 @@ class _VideoPostState extends State<VideoPost>
   late final VideoPlayerController _videoPlayerController;
 
   bool _isPaused = false;
+  bool _isMute = false;
+
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
 
@@ -45,7 +47,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
-    _videoPlayerController = VideoPlayerController.asset("assets/videos/");
+    _videoPlayerController = VideoPlayerController.asset("assets/videos/2.mp4");
 
     //1단계:초기화.
     await _videoPlayerController.initialize();
@@ -57,6 +59,7 @@ class _VideoPostState extends State<VideoPost>
       await _videoPlayerController.setVolume(0);
     }
     _videoPlayerController.addListener(_onVideoChange);
+    _onPlaybackConfigChanged();
 
     setState(() {});
     // _videoPlayerController.play();
@@ -88,14 +91,11 @@ class _VideoPostState extends State<VideoPost>
     // widget.onVideoFinished();
   }
 
-  void _onPlaybackConfigChanged() {
+  void _onPlaybackConfigChanged({bool toggle = false}) {
     if (!mounted) return;
-    final muted = context.read<PlaybackConfigViewModel>().muted;
-    if (muted) {
-      _videoPlayerController.setVolume(0);
-    } else {
-      _videoPlayerController.setVolume(1);
-    }
+    _isMute = toggle ? !_isMute : context.read<PlaybackConfigViewModel>().muted;
+    _videoPlayerController.setVolume(_isMute ? 0 : 1);
+    setState(() {});
   }
 
   void _onMuteTap() {
@@ -202,16 +202,11 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: IconButton(
               icon: FaIcon(
-                _videoPlayerController.value.volume == 0 ||
-                        context.watch<PlaybackConfigViewModel>().muted
+                _videoPlayerController.value.volume == 0 || _isMute
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
               ),
-              onPressed: () {
-                context
-                    .read<PlaybackConfigViewModel>()
-                    .setMuted(!context.read<PlaybackConfigViewModel>().muted);
-              },
+              onPressed: () => _onPlaybackConfigChanged(toggle: true),
             ),
           ),
 
