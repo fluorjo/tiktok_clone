@@ -45,7 +45,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
-    _videoPlayerController = VideoPlayerController.asset("assets/videos/1.mp4");
+    _videoPlayerController = VideoPlayerController.asset("assets/videos/");
 
     //1단계:초기화.
     await _videoPlayerController.initialize();
