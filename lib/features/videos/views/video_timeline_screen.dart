@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/widgets/video_post.dart';
 
-class VideoTimelineScreen extends StatefulWidget {
+class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({super.key});
 
   @override
-  State<VideoTimelineScreen> createState() => _VideoTimelineScreenState();
+  VideoTimelineScreenState createState() => VideoTimelineScreenState();
 }
 
-class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
+class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   //값이 변할 거기 때문에 final로 안 함.
   int _itemCount = 4;
   final PageController _pageController = PageController();
@@ -62,26 +64,37 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      //위치 설정
-      displacement: 40,
-      edgeOffset: 10,
+    return ref.watch(timelineProvider).when(
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Center(
+            child: Text(
+              'Could not load videos: $error',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+          data: (videos) => RefreshIndicator(
+            //위치 설정
+            displacement: 40,
+            edgeOffset: 10,
 
-      color: Theme.of(context).primaryColor,
-      strokeWidth: 3,
+            color: Theme.of(context).primaryColor,
+            strokeWidth: 3,
 
-      //화면을 당길 때 실행되는 callback.
-      //★★★ 반드시 future를 반환해야 한다. async 쓰거나.
-      onRefresh: _onRefresh,
-      child: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        onPageChanged: _onPageChanged,
-        itemCount: _itemCount,
-        itemBuilder: (context, index) =>
-            VideoPost(onVideoFinished: _onVideoFinished, index: index),
-        //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
-      ),
-    );
+            //화면을 당길 때 실행되는 callback.
+            //★★★ 반드시 future를 반환해야 한다. async 쓰거나.
+            onRefresh: _onRefresh,
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              onPageChanged: _onPageChanged,
+              itemCount: videos.length,
+              itemBuilder: (context, index) =>
+                  VideoPost(onVideoFinished: _onVideoFinished, index: index),
+              //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
+            ),
+          ),
+        );
   }
 }
