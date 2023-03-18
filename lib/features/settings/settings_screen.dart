@@ -39,8 +39,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             SwitchListTile.adaptive(
               activeColor: Colors.black,
-              value: context.watch<PlaybackConfigViewModel>().muted,
-              onChanged: (value)=>context.read<PlaybackConfigViewModel>().setMuted(value),
+              value: false,
+              onChanged: (value) => {},
               title: const Text(
                 'Auto Mute',
               ),
@@ -50,8 +50,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SwitchListTile.adaptive(
               activeColor: Colors.black,
-              value: context.watch<PlaybackConfigViewModel>().autoplay,
-              onChanged: (value)=>context.read<PlaybackConfigViewModel>().setAutoplay(value),
+              value: false,
+              onChanged: (value) => {},
               title: const Text(
                 'AutoPlay',
               ),

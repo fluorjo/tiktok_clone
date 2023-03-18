@@ -30,7 +30,6 @@ class _VideoPostState extends State<VideoPost>
   late final VideoPlayerController _videoPlayerController;
 
   bool _isPaused = false;
-  bool _isMute = false;
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
@@ -77,10 +76,6 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-
-    context
-        .read<PlaybackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
   }
 
   @override
@@ -91,11 +86,14 @@ class _VideoPostState extends State<VideoPost>
     // widget.onVideoFinished();
   }
 
-  void _onPlaybackConfigChanged({bool toggle = false}) {
+  void _onPlaybackConfigChanged() {
     if (!mounted) return;
-    _isMute = toggle ? !_isMute : context.read<PlaybackConfigViewModel>().muted;
-    _videoPlayerController.setVolume(_isMute ? 0 : 1);
-    setState(() {});
+
+    if (false) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
   }
 
   void _onMuteTap() {
@@ -113,8 +111,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
-      if (autoplay) {
+      if (false) {
         _videoPlayerController.play();
       }
     }
@@ -202,11 +199,11 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: IconButton(
               icon: FaIcon(
-                _videoPlayerController.value.volume == 0 || _isMute
+                _videoPlayerController.value.volume == 0 
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
               ),
-              onPressed: () => _onPlaybackConfigChanged(toggle: true),
+              onPressed: () {},
             ),
           ),
 
