@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,12 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/repos/playback_config_repo.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
+import 'package:tiktok_clone/firebase_options.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
 
 void main() async {
   //위젯과 엔진의 연결. 앱을 실행하기 전에 bind, widget, engine을 초기화하고 연결함.
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
