@@ -13,6 +13,7 @@ import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
+    //ref.watch(authState);
     return GoRouter(
       initialLocation: '/home',
       //state값에 따라 사용자를 어디로 리다이렉트 시킬 지 정할 수 있음.

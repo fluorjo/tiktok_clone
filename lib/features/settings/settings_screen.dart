@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tiktok_clone/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -27,8 +29,7 @@ class SettingsScreen extends ConsumerWidget {
               activeColor: Colors.black,
               value: ref.watch(playbackConfigProvider).muted,
               onChanged: (value) =>
-                ref.read(playbackConfigProvider.notifier).setMuted(value),
-              
+                  ref.read(playbackConfigProvider.notifier).setMuted(value),
               title: const Text(
                 'Auto Mute',
               ),
@@ -40,8 +41,7 @@ class SettingsScreen extends ConsumerWidget {
               activeColor: Colors.black,
               value: ref.watch(playbackConfigProvider).autoplay,
               onChanged: (value) =>
-                ref.read(playbackConfigProvider.notifier).setAutoplay(value),
-              
+                  ref.read(playbackConfigProvider.notifier).setAutoplay(value),
               title: const Text(
                 'AutoPlay',
               ),
@@ -185,7 +185,10 @@ class SettingsScreen extends ConsumerWidget {
                           child: const Text('No'),
                         ),
                         CupertinoActionSheetAction(
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () {
+                            ref.read(authRepo).signOut();
+                            context.go('/');
+                          },
                           isDestructiveAction: true,
                           child: const Text('Yes'),
                         ),
