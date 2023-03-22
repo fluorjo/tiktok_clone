@@ -10,13 +10,22 @@ class AuthenticationRepository {
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
 //파이어베이스 호출
-  Future<void> signUp(String email, String password) async {
+  Future<void> emailSignUp(String email, String password) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password,);
+      email: email,
+      password: password,
+    );
   }
 
-  Future<void> signOut()async{
-   await  _firebaseAuth.signOut();
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
+  Future<void> signIn(String email, String password) async {
+    await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 }
 
@@ -24,7 +33,7 @@ final authRepo = Provider(
   (ref) => AuthenticationRepository(),
 );
 
-final authState= StreamProvider(
+final authState = StreamProvider(
   (ref) {
     final repo = ref.read(authRepo);
     return repo.authStateChanges();

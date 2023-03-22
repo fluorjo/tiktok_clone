@@ -15,7 +15,7 @@ final routerProvider = Provider(
   (ref) {
     //ref.watch(authState);
     return GoRouter(
-      initialLocation: '/home',
+      initialLocation: '/LoginScreen',
       //state값에 따라 사용자를 어디로 리다이렉트 시킬 지 정할 수 있음.
       redirect: (context, state) {
         final isLoggedIn = ref.read(authRepo).isLoggedIn;
