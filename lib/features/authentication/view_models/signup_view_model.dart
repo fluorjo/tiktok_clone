@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,8 +18,9 @@ class SignUpViewModel extends AsyncNotifier<void> {
 
   Future<void> signUp(BuildContext context) async {
     state = const AsyncValue.loading();
-    final form = ref.read(signUpForm);
     final users = ref.read(usersProvider.notifier);
+
+    final form = ref.read(signUpForm);
     //await _authRepo.signUp(form['email'], form['password']);
     //state = const AsyncValue.data(null);
 
@@ -29,7 +31,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
           form['email'],
           form['password'],
         );
-          await users.createProfile(userCredential);
+        await users.createProfile(userCredential);
       },
     );
     if (state.hasError) {

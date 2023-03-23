@@ -1,13 +1,13 @@
 class UserProfileModel {
   final String email;
-  final String name;
+  final String username;
   final String uid;
   final String bio;
   final String link;
 
   UserProfileModel({
     required this.email,
-    required this.name,
+    required this.username,
     required this.uid,
     required this.bio,
     required this.link,
@@ -16,7 +16,7 @@ class UserProfileModel {
   UserProfileModel.empty()
       : uid = '',
         email = '',
-        name = '',
+        username = '',
         bio = '',
         link = '';
 
@@ -24,7 +24,7 @@ class UserProfileModel {
     return {
       'uid': uid,
       'email': email,
-      'name': name,
+      'name': username,
       'bio': bio,
       'link': link,
     };
