@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
+import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
 import 'package:tiktok_clone/utils.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
@@ -17,19 +18,23 @@ class SignUpViewModel extends AsyncNotifier<void> {
   Future<void> signUp(BuildContext context) async {
     state = const AsyncValue.loading();
     final form = ref.read(signUpForm);
+    final users = ref.read(usersProvider.notifier);
     //await _authRepo.signUp(form['email'], form['password']);
     //state = const AsyncValue.data(null);
 
     //위 두 줄을 간단하게 한 게 이거.
     state = await AsyncValue.guard(
-      () async => await _authRepo.emailSignUp(
-        form['email'],
-        form['password'],
-      ),
+      () async {
+        final userCredential = await _authRepo.emailSignUp(
+          form['email'],
+          form['password'],
+        );
+          await users.createAccount(userCredential);
+      },
     );
     if (state.hasError) {
-      showFirebaseErrorSnack(context, state.error);      
-    }else{
+      showFirebaseErrorSnack(context, state.error);
+    } else {
       context.goNamed(InterestsScreen.routeName);
     }
   }
