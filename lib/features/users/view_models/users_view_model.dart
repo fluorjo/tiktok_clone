@@ -35,7 +35,7 @@ await Future.delayed(Duration(seconds: 5));
       bio: form['bio'],
       link: "undefined",
       uid: userCredential.user!.uid,
-      username: form['username'] ?? userCredential.user!.displayName ?? 'Anon',
+      name: form['name'] ?? userCredential.user!.displayName ?? 'Anon',
       email: userCredential.user!.email ?? 'anon@anon.com',
     );
     await _usersRepository.createProfile(profile);

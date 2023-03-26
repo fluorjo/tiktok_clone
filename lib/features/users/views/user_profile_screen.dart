@@ -5,6 +5,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
+import 'package:tiktok_clone/features/users/views/widgets/avatar.dart';
 import 'package:tiktok_clone/features/users/views/widgets/persistent_tab_bar.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
@@ -50,7 +51,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                   headerSliverBuilder: (context, innerBoxIsScrolled) {
                     return [
                       SliverAppBar(
-                        title: Text(widget.username),
+                        title: Text(data.name),
                         actions: [
                           IconButton(
                             onPressed: _onGearPressed,
@@ -65,18 +66,13 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                         child: Column(
                           children: [
                             Gaps.v20,
-                            const CircleAvatar(
-                              radius: 50,
-                              foregroundImage: NetworkImage(
-                                  "http://cdnweb01.wikitree.co.kr/webdata/editor/201910/21/img_20191021172319_469be28a.jpg"),
-                              child: Text("사용자"),
-                            ),
+                             Avatar(name: data.name),
                             Gaps.v20,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "@${widget.username}",
+                                  "@${data.name}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Sizes.size18,
