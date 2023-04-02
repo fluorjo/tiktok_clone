@@ -39,7 +39,8 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
             title: 'From Flutter',
             creator: userProfile.name,
           ),);
-          context.pushReplacement("/home");
+          context.pop();
+          context.pop();
         }
       });
     }
