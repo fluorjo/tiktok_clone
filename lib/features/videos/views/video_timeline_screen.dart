@@ -12,7 +12,7 @@ class VideoTimelineScreen extends ConsumerStatefulWidget {
 
 class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   //값이 변할 거기 때문에 final로 안 함.
-  int _itemCount = 4;
+  int _itemCount = 0;
   final PageController _pageController = PageController();
   final Duration _scrollDuration = const Duration(milliseconds: 10);
   final Curve _scrollCurve = Curves.linear;
@@ -24,8 +24,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
       curve: _scrollCurve,
     );
     if (page == _itemCount - 1) {
-      _itemCount = _itemCount + 4;
-      setState(() {});
+      ref.watch(timelineProvider.notifier).fetchNextPage();
     }
   }
 //영상 끝난 뒤 다음 영상 바로 재생
@@ -65,16 +64,18 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   @override
   Widget build(BuildContext context) {
     return ref.watch(timelineProvider).when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          error: (error, stackTrace) => Center(
-            child: Text(
-              'Could not load videos: $error',
-              style: const TextStyle(color: Colors.white),
+        loading: () => const Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-          data: (videos) => RefreshIndicator(
+        error: (error, stackTrace) => Center(
+              child: Text(
+                'Could not load videos: $error',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+        data: (videos) {
+          _itemCount = videos.length;
+          return RefreshIndicator(
             //위치 설정
             displacement: 40,
             edgeOffset: 10,
@@ -95,11 +96,11 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
                   return VideoPost(
                     onVideoFinished: _onVideoFinished,
                     index: index,
-                    videoData:videoData,
+                    videoData: videoData,
                   );
                   //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
                 }),
-          ),
-        );
+          );
+        });
   }
 }

@@ -22,14 +22,25 @@ class VideosRepository {
     await _db.collection('videos').add(data.toJson());
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>>fetchVideos() {
-    return _db
+
+  Future<QuerySnapshot<Map<String, dynamic>>>fetchVideos({int? lastItemCreatedAt}) {
+    final query=_db
         .collection("videos")
         .orderBy(
           'createdAt',
           descending: true,
         )
+        .limit(2);
+    if (lastItemCreatedAt ==null){
+    return query
         .get();
+
+    }else{
+    return query
+        .startAfter([lastItemCreatedAt])
+        .get();
+      
+    }
   }
 }
 
