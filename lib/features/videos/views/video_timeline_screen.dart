@@ -86,14 +86,19 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
             //★★★ 반드시 future를 반환해야 한다. async 쓰거나.
             onRefresh: _onRefresh,
             child: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              onPageChanged: _onPageChanged,
-              itemCount: videos.length,
-              itemBuilder: (context, index) =>
-                  VideoPost(onVideoFinished: _onVideoFinished, index: index),
-              //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
-            ),
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                onPageChanged: _onPageChanged,
+                itemCount: videos.length,
+                itemBuilder: (context, index) {
+                  final videoData = videos[index];
+                  return VideoPost(
+                    onVideoFinished: _onVideoFinished,
+                    index: index,
+                    videoData:videoData,
+                  );
+                  //함수를 video post로 넘겨줌. 근데 stateful에 넘겨주는 거지 state한테 가는 게 아님.
+                }),
           ),
         );
   }
