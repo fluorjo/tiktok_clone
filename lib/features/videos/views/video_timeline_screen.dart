@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
-import 'package:tiktok_clone/features/videos/widgets/video_post.dart';
+import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
 
 class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({super.key});
@@ -56,9 +56,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
 
   Future<void> _onRefresh() {
     //Future.delayed = future가 있는 것처럼 하는 것.
-    return Future.delayed(
-      const Duration(seconds: 2),
-    );
+    return ref.watch(timelineProvider.notifier).refresh();
   }
 
   @override
