@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = 'chatDetail';
   static const String routeURL = ":chatId";
   final String chatId;
@@ -13,12 +15,24 @@ class ChatDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ConsumerState<ChatDetailScreen> createState() => _ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
+class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
+  final TextEditingController _editingController = TextEditingController();
+
+  void _onSendPress() {
+    final text = _editingController.text;
+    if (text == "") {
+      return;
+    }
+    ref.read(messagesProvider.notifier).sendMessage(text);
+    _editingController.text = "";
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(messagesProvider).isLoading;
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -137,6 +151,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     child: SizedBox(
                       height: Sizes.size44,
                       child: TextField(
+                        controller: _editingController,
                         textInputAction: TextInputAction.newline,
                         minLines: null,
                         maxLines: null,
@@ -209,22 +224,25 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     width: Sizes.size32,
                     height: Sizes.size32,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(50),
                       ),
                     ),
                     alignment: Alignment.center,
-                    child: const FaIcon(
-                      size: Sizes.size20,
-                      color: Colors.white,
-                      FontAwesomeIcons.solidPaperPlane,
+                    child: IconButton(
+                      icon: FaIcon(
+                        isLoading
+                            ? FontAwesomeIcons.hourglass
+                            : FontAwesomeIcons.solidPaperPlane,
+                        color: Colors.black,
+                      ),
+                      onPressed: isLoading ? null : _onSendPress,
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
