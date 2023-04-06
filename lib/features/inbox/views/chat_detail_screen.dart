@@ -184,9 +184,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     alignment: AlignmentDirectional.bottomStart,
                     width: 10,
                     height: 44,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                    ),
+                    // decoration: BoxDecoration(
+                    //   color: Colors.grey.shade200,
+                    // ),
                     child: Container(
                       width: 5,
                       height: 5,
