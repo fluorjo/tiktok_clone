@@ -1,6 +1,5 @@
 //오로지 데이터의 유지와 읽기만 책임지는 파일.
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaybackConfigRepository {

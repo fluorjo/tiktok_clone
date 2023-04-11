@@ -69,7 +69,7 @@ class LoginScreen extends ConsumerWidget {
               GestureDetector(
                 onTap: ()=> ref.read(socialAuthProvider.notifier).githubSignIn(context),
                 child: AuthButton(
-                    icon: FaIcon(FontAwesomeIcons.github),
+                    icon: const FaIcon(FontAwesomeIcons.github),
                     text: S.of(context).appleButton),
               ),
             ],

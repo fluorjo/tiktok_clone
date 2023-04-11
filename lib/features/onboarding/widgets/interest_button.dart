@@ -45,7 +45,7 @@ class _interestButtonState extends State<interestButton> {
                 spreadRadius: 5,
               )
             ]),
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         child: Text(
           widget.interest,
           style:  TextStyle(

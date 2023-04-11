@@ -30,3 +30,4 @@ class MessagesViewModel extends AsyncNotifier<void> {
 final messagesProvider = AsyncNotifierProvider<MessagesViewModel, void>(
   () => MessagesViewModel(),
 );
+
