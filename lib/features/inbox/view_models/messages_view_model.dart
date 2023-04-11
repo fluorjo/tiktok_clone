@@ -24,7 +24,7 @@ class MessagesViewModel extends AsyncNotifier<void> {
         userId: user!.uid,
         createdAt: DateTime.now().millisecondsSinceEpoch,
       );
-      _repo.sendMessage(message);
+      await _repo.sendMessage(message);
     });
   }
 }
