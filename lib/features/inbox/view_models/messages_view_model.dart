@@ -33,7 +33,9 @@ final messagesProvider = AsyncNotifierProvider<MessagesViewModel, void>(
   () => MessagesViewModel(),
 );
 
-final chatProvider = StreamProvider<List<MessageModel>>((ref) {
+//autodispose=streamprovider가 방을 나가면 자동으로 종료되게 함.이거 안 해주면 방 나가있어도 계속해서 listen 하고 있게 됨.
+//자원이 필요하지 않을 때 자원을 놓아준다.
+final chatProvider = StreamProvider.autoDispose<List<MessageModel>>((ref) {
   final db = FirebaseFirestore.instance;
   return db
       .collection("chat_rooms")
@@ -42,10 +44,14 @@ final chatProvider = StreamProvider<List<MessageModel>>((ref) {
       .orderBy("createdAt")
       .snapshots()
       .map(
-        (event) => event.docs.map(
-          (doc) => MessageModel.fromJson(
-            doc.data(),
-          ),
-        ).toList(),
+        (event) => event.docs
+            .map(
+              (doc) => MessageModel.fromJson(
+                doc.data(),
+              ),
+            )
+            .toList()
+            .reversed
+            .toList(),
       );
 });
