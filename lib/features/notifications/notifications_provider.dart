@@ -47,6 +47,6 @@ class NotificationProvider extends FamilyAsyncNotifier<void, BuildContext> {
   }
 }
 
-final notificationsProvider = AsyncNotifierProvider(
+final notificationsProvider = AsyncNotifierProvider.family(
   () => NotificationProvider(),
 );
