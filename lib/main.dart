@@ -46,7 +46,6 @@ class TikTokApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //언어설정 바로 바꾸는 코드
     //S.load(const Locale('ko'));
-    ref.watch(notificationsProvider(context));
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,

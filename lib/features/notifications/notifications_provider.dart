@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/authentication/repos/authentication_repo.dart';
+import 'package:tiktok_clone/features/inbox/views/chats_screen.dart';
+import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
 
 class NotificationProvider extends FamilyAsyncNotifier<void, BuildContext> {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -26,11 +28,12 @@ class NotificationProvider extends FamilyAsyncNotifier<void, BuildContext> {
       print(event.notification?.title);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((notification) {
-    context.go('/chats');
+      context.pushNamed(ChatsScreen.routeName);
     });
     final notification = await _messaging.getInitialMessage();
-    if(notification!=null){
-      context.go('/settings');
+    if (notification != null) {
+      context.pushNamed(VideoRecordingScreen.routeName);
+
       print(notification.data['screen']);
     }
   }
